@@ -24,16 +24,27 @@ Sola utilizes a strictly decoupled, asynchronous Task-based (TAP) pipeline in C#
 ## 📂 Repository Contents
 * `GeminiApiClient.cs` — The primary orchestrator script handling the bidirectional data flow between the Unity client, Google Gemini, and ElevenLabs.
 
-## 🛠️ Setup & Prerequisites
-1. **Unity Version:** Unity 2022.3 LTS (or newer) with Universal Render Pipeline (URP).
-2. **API Keys Required:**
-   * [Google Gemini API Key](https://aistudio.google.com/)
-   * [ElevenLabs API Key](https://elevenlabs.io/)
-3. **Usage:** Attach the `GeminiApiClient.cs` script to an empty GameObject. Assign your API keys in the Inspector and link the required UI/AudioSource components.
+## 🛠️ Installation & Scene Setup Guide
+### 1. Unity Environment Setup
+1. Open your Unity project (recommended: **Unity 2022.3 LTS** with the **Universal Render Pipeline**).
+2. Ensure you have the **XR Interaction Toolkit** (or Meta XR Core SDK) configured if deploying directly to the Meta Quest 3 headset.
+3. Import the `Newtonsoft.Json` library via the Unity Package Manager.
+
+### 2. Scene Hierarchy Configuration
+To deploy the **Sola Core Interface** in your scene, construct the following hierarchy structure:
+* 🟢 **Sola_Assistant (GameObject)** — *Attach the `GeminiApiClient.cs` script here. An `AudioSource` component will be added automatically.*
+    * 🔹 **Eclipse_Core (3D Sphere)** — *Acts as the anchor disk. Assign this to the `emotionRenderer` field in the Inspector to drive real-time emission color shifts.*
+    * 🔹 **Glow_Ring (3D Torus/Particles)** — *The emissive outer ring layer. Assign this Transform component to the `glowTransform` field to animate real-time volume scaling.*
+    * 📦 **UI_Canvas (World Space Canvas)**
+        * 📝 **Transcript_Text (TextMeshPro)** — *Assign this to the `outputText` field to display live bidirectional text updates.*
+        * 🖼️ **Settings_Panel (GameObject)** — *Contains the optional UI sliders (`opacitySlider`, `volumeSlider`, `sensitivitySlider`) linked to the internal state controllers.*
+
+### 3. Execution
+Paste your validated API credentials into the designated `geminiApiKey` and `elevenLabsApiKey` Inspector fields. Trigger the `ToggleRecording()` method via any standard XR UI interaction event (such as a canvas button click or an input action component mapped to your controllers) to initiate the live conversational loop.
 
 ## 🎓 Academic Context
 The Sola architecture was developed as a technical proof-of-concept for the engineering thesis: 
-*"Development of a Universal Cloud-Based AI Assistant for Mixed Reality Environments"* by Andrei Ziber (LAB University of Applied Sciences, 2026).
+*"Development of a Universal Cloud-Based AI Assistant for Mixed Reality Environments"* by Andrei Ziber (LAB University of Applied Sciences, 2022).
 
 ## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
