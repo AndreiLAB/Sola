@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sola XR // Spatial Intelligence &amp; Key Vault</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Lightweight Standalone QR Code Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <!-- Ambient Space & Solar Glow Background -->
+  <div class="space-ambient" aria-hidden="true">
+    <div class="space-corona-glow"></div>
+    <div class="space-gold-accent"></div>
+  </div>
+
+  <div class="wizard-container">
+
+    <!-- Top Persistent Navigation Bar -->
+    <header class="wizard-header">
+      <div class="brand clickable-brand" id="brandHomeBtn" role="button" tabindex="0" title="Return to Start">
+        <div class="mini-eclipse">
+          <div class="mini-moon"></div>
+          <div class="mini-corona"></div>
+          <div class="mini-emote-dot"></div>
+        </div>
+        <div class="brand-info">
+          <h1>SOLA <span>XR</span></h1>
+          <p class="tagline">Spatial Intelligence // Mixed Reality</p>
+        </div>
+      </div>
+
+      <!-- Step Indicator (Clickable to jump between steps) -->
+      <nav class="stepper-nav hidden" id="stepperNav" aria-label="Wizard Steps">
+        <div class="step-pill active" data-step="2" role="button" tabindex="0" title="Go to Step 1: Brain">
+          <span class="step-num">1</span>
+          <span class="step-name">Brain</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-pill" data-step="3" role="button" tabindex="0" title="Go to Step 2: Workspace">
+          <span class="step-num">2</span>
+          <span class="step-name">Workspace</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-pill" data-step="4" role="button" tabindex="0" title="Go to Step 3: Persona">
+          <span class="step-num">3</span>
+          <span class="step-name">Persona</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-pill" data-step="5" role="button" tabindex="0" title="Go to Step 4: Pair">
+          <span class="step-num">4</span>
+          <span class="step-name">Pair</span>
+        </div>
+      </nav>
+
+      <!-- Header Actions: Settings & Status Pill -->
+      <div class="header-actions">
+        <button type="button" class="icon-nav-btn" id="btnOpenSettings" title="Cognitive Settings &amp; Telemetry">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span class="btn-text-nav">Settings</span>
+        </button>
+
+        <div class="headset-status-pill" id="headsetStatusPill">
+          <span class="pulse-dot"></span>
+          <span class="status-label" id="statusPillLabel">Setup Active</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Wizard Viewport -->
+    <main class="wizard-viewport">
+
+      <!-- ==============================================
+           SCREEN 0: PROFILE SETUP & ACTIVATION
+           ============================================== -->
+      <section class="wizard-screen active" id="screen-0">
+        <div class="screen-card auth-card">
+          <div class="auth-hero">
+            <div class="hero-chip">Zero-Infrastructure BYOK</div>
+            <h2 class="hero-title">Set Up Your Sola Profile</h2>
+            <p class="hero-subtitle">Configure your personal assistant before stepping into Mixed Reality.</p>
+          </div>
+
+          <!-- Google One-Click Auth Action (Triggers popup) -->
+          <button type="button" class="btn btn-auth btn-google-auth" id="btnGoogleSignInGlobal">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.27 21.43 7.33 24 12 24Z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.97 0 12s.45 3.82 1.25 5.42l4.03-3.15Z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.57 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98Z"/></svg>
+            <span>Sign In with Google</span>
+          </button>
+
+          <div class="auth-divider">
+            <span>or manual profile setup</span>
+          </div>
+
+          <!-- Profile Setup Form -->
+          <form id="profileSetupForm" class="profile-setup-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="userNameInput">Your Name or Call-Sign</label>
+              <input type="text" id="userNameInput" placeholder="e.g. Andrei" autocomplete="name" spellcheck="false" required>
+            </div>
+
+            <div class="action-buttons-group">
+              <button type="submit" class="btn btn-primary btn-large" id="btnStartSetup">
+                Continue to Sola <span>→</span>
+              </button>
+              <button type="button" class="btn btn-secondary btn-large" id="btnQuickGuest">
+                ⚡ Quick Start as Guest
+              </button>
+            </div>
+          </form>
+
+          <!-- Privacy Footnote -->
+          <div class="auth-footer">
+            <p class="privacy-note">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <strong>Zero-Middleman Architecture:</strong> No developer proxy servers. Your credentials stay local on your machine and headset. When activated, voice queries stream directly between your headset and Google Gemini under your personal quota.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 1: ECLIPSE GENESIS (3.5s ANIMATION INTRO)
+           ============================================== -->
+      <section class="wizard-screen" id="screen-1">
+        <div class="screen-card genesis-card">
+          <div class="genesis-stage">
+            <!-- Sun Sphere -->
+            <div class="genesis-sun"></div>
+            <!-- Occlusion Moon Sphere -->
+            <div class="genesis-moon"></div>
+            <!-- Corona Halo -->
+            <div class="genesis-corona"></div>
+            <!-- Dynamic Orbiting Emote Core (Top Right) -->
+            <div class="genesis-emote-core" id="genesisEmoteCore"></div>
+          </div>
+
+          <div class="genesis-text-group">
+            <h2 class="genesis-title" id="genesisTitle">Welcome.</h2>
+            <p class="genesis-subtitle" id="genesisSubtitle">I'm Sola — your personal AI assistant, let me know you better.</p>
+          </div>
+
+          <div class="genesis-actions">
+            <button type="button" class="btn btn-primary btn-large glow-btn" id="btnGenesisStart">
+              Let's Begin <span>→</span>
+            </button>
+            <button type="button" class="btn-ghost-small" id="btnSkipGenesis">
+              Skip Intro
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 2: BRAIN ENGINE (GEMINI API KEY BYOK)
+           ============================================== -->
+      <section class="wizard-screen" id="screen-2">
+        <div class="screen-card">
+          <div class="screen-header">
+            <span class="step-label">Step 1 // Brain Activation</span>
+            <h2>Provide Gemini API Key (BYOK)</h2>
+            <p class="screen-desc">
+              Sola runs on <strong>Google Gemini 2.5 Flash</strong>. By using your own free API key, voice queries and spatial interactions cost you <strong>$0.00</strong> with zero server markups.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="geminiApiKeyInput">Gemini API Key</label>
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" class="glow-link">
+                Get free key from Google AI Studio ↗
+              </a>
+            </div>
+            <div class="input-wrapper password-wrapper">
+              <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." spellcheck="false" autocomplete="off">
+              <button type="button" class="icon-btn" id="toggleKeyVisibility" title="Show/Hide Key">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="key-status-bar" id="keyStatusBar">
+            <div class="status-indicator">
+              <span class="status-icon" id="keyStatusIcon">○</span>
+              <span class="status-text" id="keyStatusText">Paste your key to validate</span>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnTestKey">
+              Test Connection
+            </button>
+          </div>
+
+          <!-- Demo Mode (Mock Offline Responses) Toggle Option -->
+          <div class="demo-mode-card" id="demoModeCard">
+            <div class="demo-mode-info">
+              <div class="demo-badge-row">
+                <span class="hero-chip demo-chip">Fast-Track QA</span>
+                <strong>Demo Mode (Mock Offline Responses)</strong>
+              </div>
+              <p class="demo-mode-desc">
+                Want to evaluate headset pairing and spatial UI immediately without entering an API key? Sola will simulate responses locally.
+              </p>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnToggleDemoMode">
+              <span id="demoModeBtnLabel">⚡ Enable Demo Mode</span>
+            </button>
+          </div>
+
+          <div class="screen-footer-actions row-between">
+            <button type="button" class="btn-ghost" id="btnStep2Back">
+              ← Return
+            </button>
+            <button type="button" class="btn btn-primary" id="btnStep2Continue" disabled>
+              Continue to Workspace <span>→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 3: WORKSPACE LINK (CALENDAR & TASKS)
+           ============================================== -->
+      <section class="wizard-screen" id="screen-3">
+        <div class="screen-card">
+          <div class="screen-header">
+            <div class="header-badge-row">
+              <span class="step-label">Step 2 // Workspace Synchronization</span>
+              <span class="hero-chip chip-optional">Optional // Advanced Preview</span>
+            </div>
+            <h2>Google Calendar &amp; Tasks Link</h2>
+            <p class="screen-desc">
+              Connect Google Workspace to let Sola look up your schedule, read upcoming events, and check off tasks using Gemini function calling directly inside your headset.
+            </p>
+          </div>
+
+          <!-- Connected State -->
+          <div class="workspace-connected-badge hidden" id="workspaceConnectedBadge">
+            <img src="" alt="Google Avatar" class="user-avatar" id="workspaceUserAvatar">
+            <div class="workspace-user-info">
+              <div class="user-info-row">
+                <span class="user-name" id="workspaceUserName">User</span>
+                <span class="badge-pill badge-connected">✓ Connected</span>
+              </div>
+              <span class="user-email" id="workspaceUserEmail">user@example.com</span>
+              <span class="user-status">Google Workspace Read-Only Active</span>
+            </div>
+            <button type="button" class="btn-ghost-small" id="btnDisconnectWorkspace">Disconnect</button>
+          </div>
+
+          <!-- Unconnected State -->
+          <div class="workspace-unconnected-card" id="workspaceUnconnectedCard">
+            <div class="connection-status-banner">
+              <span class="status-dot-off"></span>
+              <span class="connection-state-text">Status: <strong class="text-unconnected">Not Connected</strong> (Optional)</span>
+            </div>
+
+            <div class="workspace-features">
+              <div class="feature-item">
+                <div class="feature-icon">📅</div>
+                <div class="feature-text">
+                  <strong>Live Schedule Lookups</strong>
+                  <span>"What meetings do I have this afternoon?"</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">☑️</div>
+                <div class="feature-text">
+                  <strong>Task &amp; Reminder Check</strong>
+                  <span>"Read out my pending tasks for today."</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Queries Enabled Info Box -->
+            <div class="workspace-sample-queries">
+              <span class="sample-queries-title">💡 What Queries This Enables:</span>
+              <p class="sample-queries-desc">With read-only access granted, Sola uses Gemini function calling to resolve natural spatial voice queries on the fly:</p>
+              <ul class="sample-queries-list">
+                <li><code>"Sola, what does my schedule look like today?"</code> &rarr; Reads live Google Calendar events.</li>
+                <li><code>"Do I have any pending tasks due this week?"</code> &rarr; Scans your Google Tasks list.</li>
+              </ul>
+            </div>
+
+            <button type="button" class="btn btn-auth btn-google-auth" id="btnConnectWorkspaceGoogle">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.27 21.43 7.33 24 12 24Z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.97 0 12s.45 3.82 1.25 5.42l4.03-3.15Z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.27 2.57 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98Z"/></svg>
+              <span>Connect Google Account</span>
+            </button>
+            <span class="status-feedback" id="workspaceAuthFeedback"></span>
+          </div>
+
+          <div class="screen-footer-actions row-between">
+            <button type="button" class="btn-ghost" id="btnStep3Back">
+              ← Return
+            </button>
+            <div class="action-btn-cluster">
+              <button type="button" class="btn-ghost" id="btnSkipWorkspace">
+                Skip for now
+              </button>
+              <button type="button" class="btn btn-primary" id="btnStep3Continue">
+                Continue to Persona <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 4: PERSONA & VOICE CALIBRATION
+           ============================================== -->
+      <section class="wizard-screen" id="screen-4">
+        <div class="screen-card">
+          <div class="screen-header">
+            <span class="step-label">Step 3 // Calibrate Mind</span>
+            <h2>Tune Sola's Persona &amp; Voice</h2>
+            <p class="screen-desc">
+              Choose how Sola communicates in spatial computing or customize your own system instructions.
+            </p>
+          </div>
+
+          <!-- Persona Preset Chips -->
+          <div class="persona-chips-grid">
+            <div class="persona-chip active" data-preset="architect">
+              <div class="chip-icon">🕶️</div>
+              <div class="chip-content">
+                <span class="chip-title">Architect</span>
+                <span class="chip-desc">Concise, technical, and analytical. Focuses on systems, code, and direct high-signal answers.</span>
+              </div>
+            </div>
+
+            <div class="persona-chip" data-preset="companion">
+              <div class="chip-icon">☕</div>
+              <div class="chip-content">
+                <span class="chip-title">Companion</span>
+                <span class="chip-desc">Warm, conversational, and empathetic. Tracks focus, energy, and daily routines with personality.</span>
+              </div>
+            </div>
+
+            <div class="persona-chip" data-preset="tinkerer">
+              <div class="chip-icon">⚡</div>
+              <div class="chip-content">
+                <span class="chip-title">Tinkerer</span>
+                <span class="chip-desc">Rapid prototyping, creative ideation, hands-on spatial debugging, and experimenter mindset.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Voice Pitch Slider & Audio Preview -->
+          <div class="slider-group">
+            <div class="label-row">
+              <label for="voicePitchSlider">Speech Pitch (On-Device Synthesis)</label>
+              <div class="pitch-ctrl-cluster">
+                <span class="slider-val" id="voicePitchValue">1.0x</span>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnPreviewVoice" title="Preview audio at current pitch">
+                  ▶ Listen Preview
+                </button>
+              </div>
+            </div>
+            <input type="range" id="voicePitchSlider" min="0.8" max="1.2" step="0.05" value="1.0">
+          </div>
+
+          <!-- Cognitive Subsystems Configuration -->
+          <div class="cognitive-settings-section">
+            <div class="section-title-row">
+              <span class="section-badge">Cognitive Subsystems</span>
+              <h3>Autonomy &amp; Reflex Dynamics</h3>
+            </div>
+
+            <div class="cognitive-cards-grid">
+              <!-- Engine 1: Two-Stroke Fast Reflex -->
+              <div class="cog-card">
+                <div class="cog-card-header">
+                  <label class="switch-container">
+                    <input type="checkbox" id="fastReflexToggle" checked>
+                    <span class="switch-slider"></span>
+                  </label>
+                  <div class="cog-card-title">
+                    <span class="cog-name">Two-Stroke Reflex (&lt;100ms)</span>
+                    <span class="cog-status-sub">Instant visual flare + spatial chime</span>
+                  </div>
+                </div>
+                <p class="cog-desc">Eliminates dead silence upon speech release while Gemini processes context.</p>
+                <div class="cog-sub-option">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="microVocalToggle">
+                    <span>Enable Micro-vocal cues ("On it...", "Looking into that...")</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Engine 2: Proactive Heartbeat -->
+              <div class="cog-card">
+                <div class="cog-card-header">
+                  <label class="switch-container">
+                    <input type="checkbox" id="heartbeatToggle" checked>
+                    <span class="switch-slider"></span>
+                  </label>
+                  <div class="cog-card-title">
+                    <span class="cog-name">Proactive Spatial Heartbeat</span>
+                    <span class="cog-status-sub">Idle presence, calendar radar &amp; 45m stretch</span>
+                  </div>
+                </div>
+                <p class="cog-desc">Sola subtly breathes in space and notifies you before meetings or eye strain.</p>
+                <div class="cog-interval-row">
+                  <label for="heartbeatIntervalSelect">Check Interval:</label>
+                  <select id="heartbeatIntervalSelect" class="select-styled">
+                    <option value="5">5 Minutes (Deep Focus)</option>
+                    <option value="15" selected>15 Minutes (Balanced)</option>
+                    <option value="30">30 Minutes (Casual)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Engine 3: Inner Monologue HUD -->
+              <div class="cog-card">
+                <div class="cog-card-header">
+                  <label class="switch-container">
+                    <input type="checkbox" id="showThoughtsToggle" checked>
+                    <span class="switch-slider"></span>
+                  </label>
+                  <div class="cog-card-title">
+                    <span class="cog-name">Inner Monologue HUD</span>
+                    <span class="cog-status-sub">Render thought stream &amp; intent</span>
+                  </div>
+                </div>
+                <p class="cog-desc">Projects Sola's internal reasoning and structured intent directly in your spatial field.</p>
+              </div>
+
+              <!-- Engine 4: Tactile Core & Spatial Physics -->
+              <div class="cog-card">
+                <div class="cog-card-header">
+                  <label class="switch-container">
+                    <input type="checkbox" id="tactileCoreToggle" checked>
+                    <span class="switch-slider"></span>
+                  </label>
+                  <div class="cog-card-title">
+                    <span class="cog-name">Tactile Core &amp; Spatial Physics</span>
+                    <span class="cog-status-sub">XR Poke, Grab &amp; Flick-to-Perch</span>
+                  </div>
+                </div>
+                <p class="cog-desc">Direct finger touches trigger listening. Flicking docks Sola to a miniature peripheral perch.</p>
+                <div class="cog-sub-option">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="gazeAwakenToggle">
+                    <span>Gaze Attention Trigger (Dwell to awaken)</span>
+                  </label>
+                </div>
+                <div class="cog-sub-option">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="zonesEnabledToggle">
+                    <span>Contextual Spatial Zones (Desk vs Lounge auto-lenses)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen-footer-actions row-between">
+            <button type="button" class="btn-ghost" id="btnStep4Back">
+              ← Return
+            </button>
+            <div class="action-btn-cluster">
+              <button type="button" class="btn-ghost" id="btnSkipPersona">
+                Use Defaults
+              </button>
+              <button type="button" class="btn btn-primary" id="btnStep4Continue">
+                Generate Optical QR <span>→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 5: OPTICAL SYNC (THE HEADSET QR HANDOFF)
+           ============================================== -->
+      <section class="wizard-screen" id="screen-5">
+        <div class="screen-card sync-screen-card">
+          <div class="screen-header text-center">
+            <span class="step-label">Step 4 // Optical Handshake</span>
+            <h2>Look at This Screen with Your Headset</h2>
+            <p class="screen-desc">
+              Put on your headset in <strong>Passthrough mode</strong> and look at the QR code below. Sola will instantly ingest your configuration.
+            </p>
+          </div>
+
+          <!-- QR Passthrough Camera Readability Controls -->
+          <div class="qr-viewport-controls">
+            <div class="segmented-control" role="group" aria-label="QR Code Size">
+              <button type="button" class="segment-btn active" id="btnQrSizeNormal" data-size="normal">Standard</button>
+              <button type="button" class="segment-btn" id="btnQrSizeLarge" data-size="large">Large (Passthrough Optimized)</button>
+            </div>
+            <button type="button" class="toggle-pill-btn" id="btnQrInvert" aria-pressed="false" title="Invert dark-on-light vs light-on-dark for camera exposure in dim rooms">
+              <span class="toggle-icon">◑</span>
+              <span id="btnQrInvertLabel">Invert (Light-on-Dark)</span>
+            </button>
+          </div>
+
+          <!-- Optical QR Code Stage with Solar Corona Ring -->
+          <div class="qr-optical-stage" id="qrOpticalStage">
+            <div class="qr-solar-halo" id="qrSolarHalo"></div>
+            <div class="qr-target-box" id="qrTargetBox">
+              <div id="qrcodeCanvas" class="qr-code-wrapper"></div>
+            </div>
+            <div class="qr-status-pill">
+              <span class="pulse-dot active"></span>
+              <span id="qrStatusLabel">Live Config Encoded</span>
+            </div>
+          </div>
+
+          <!-- QR Contents Disclosure & Transparency Card -->
+          <details class="qr-payload-disclosure" id="qrPayloadDisclosure">
+            <summary class="disclosure-summary">
+              <span class="disclosure-icon">👁️</span>
+              <span id="qrDisclosureSummaryText">Show / Hide QR Contents</span>
+            </summary>
+            <div class="qr-payload-viewer">
+              <div class="payload-field">
+                <span class="field-label">Gemini Key:</span>
+                <span class="field-val mono" id="qrFieldKey">Not configured</span>
+              </div>
+              <div class="payload-field">
+                <span class="field-label">Google OAuth:</span>
+                <span class="field-val mono" id="qrFieldToken">None</span>
+              </div>
+              <div class="payload-field">
+                <span class="field-label">Persona Mode:</span>
+                <span class="field-val" id="qrFieldPersona">Architect</span>
+              </div>
+              <div class="payload-field">
+                <span class="field-label">Voice Pitch:</span>
+                <span class="field-val" id="qrFieldPitch">1.00x</span>
+              </div>
+              <div class="payload-field">
+                <span class="field-label">User Call-Sign:</span>
+                <span class="field-val" id="qrFieldUser">Explorer</span>
+              </div>
+              <div class="payload-field">
+                <span class="field-label">Architecture:</span>
+                <span class="field-val text-emerald" id="qrFieldArch">Zero-Middleman (Direct)</span>
+              </div>
+            </div>
+          </details>
+
+          <!-- Headset Steps Guide -->
+          <div class="quest-steps-row">
+            <div class="quest-step-item">
+              <span class="step-bullet">1</span>
+              <span>Put on your headset</span>
+            </div>
+            <div class="quest-step-item">
+              <span class="step-bullet">2</span>
+              <span>Open Sola in Passthrough</span>
+            </div>
+            <div class="quest-step-item">
+              <span class="step-bullet">3</span>
+              <span>Look at the QR code</span>
+            </div>
+          </div>
+
+          <!-- Alternative: Local Wi-Fi LAN Sync Accordion -->
+          <details class="wifi-fallback-details">
+            <summary>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+              Alternative: Push via Local Wi-Fi LAN (HTTP)
+            </summary>
+            <div class="wifi-fallback-body">
+              <div class="form-row">
+                <input type="text" id="wifiHeadsetIp" placeholder="192.168.1.120" spellcheck="false">
+                <input type="text" id="wifiPairingCode" placeholder="SOLA-89" maxlength="8" class="code-font" spellcheck="false">
+                <button type="button" class="btn btn-secondary" id="btnPushWifi">Push Wi-Fi</button>
+              </div>
+              <span class="status-feedback" id="wifiPushFeedback"></span>
+            </div>
+          </details>
+
+          <!-- Finished Actions with Return button -->
+          <div class="screen-footer-actions text-center">
+            <button type="button" class="btn-ghost" id="btnStep5Back">
+              ← Return to Persona
+            </button>
+            <button type="button" class="btn btn-secondary" id="btnCopyPayload">
+              Copy QR Config Data
+            </button>
+            <button type="button" class="btn-ghost" id="btnRestartWizard">
+              Restart Wizard ↺
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="wizard-footer">
+      <p>Sola AI Framework &bull; Mixed Reality &bull; Spatial Intelligence Platform</p>
+      <div class="footer-links">
+        <a href="https://github.com/AndreiLAB/SolaUnity" target="_blank" rel="noopener">GitHub Repository ↗</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Global Settings & Live Telemetry Modal -->
+  <div class="modal-overlay hidden" id="globalSettingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsModalTitle">
+    <div class="modal-card settings-modal-card">
+      <div class="modal-header">
+        <div class="modal-title-cluster">
+          <div class="mini-eclipse mini-eclipse-sm">
+            <div class="mini-moon"></div>
+            <div class="mini-corona"></div>
+          </div>
+          <h3 id="settingsModalTitle">Sola XR // Settings &amp; Telemetry</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="btnCloseSettingsModal" aria-label="Close Settings">&times;</button>
+      </div>
+
+      <div class="settings-modal-tabs">
+        <button type="button" class="tab-btn active" data-tab="tab-cognitive">Cognitive &amp; Persona</button>
+        <button type="button" class="tab-btn" data-tab="tab-spatial">Spatial &amp; Tactile</button>
+        <button type="button" class="tab-btn" data-tab="tab-audio">Audio &amp; Hardware</button>
+        <button type="button" class="tab-btn" data-tab="tab-telemetry">Live Thought Feed</button>
+      </div>
+
+      <div class="settings-modal-body">
+        <!-- Tab 1: Cognitive & Persona -->
+        <div class="settings-tab-pane active" id="tab-cognitive">
+          <!-- Product Tier Selector (Sola vs SolaP) -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <div class="profile-tier-header">
+              <label>Product Tier &amp; Emotional Brain</label>
+              <span class="profile-tier-badge" id="profileTierBadge">SolaP Playground ⚡</span>
+            </div>
+            <div class="tier-button-group">
+              <button type="button" class="tier-btn" data-tier="standard" id="btnTierStandard">
+                <span class="tier-icon">🏢</span>
+                <span class="tier-info">
+                  <strong>Sola Standard</strong>
+                  <small>Client demo mode. Calm, stable, 0 barks.</small>
+                </span>
+              </button>
+              <button type="button" class="tier-btn active" data-tier="personal" id="btnTierPersonal">
+                <span class="tier-icon">⚡</span>
+                <span class="tier-info">
+                  <strong>SolaP Playground</strong>
+                  <small>Personal sandbox with local Mood Engine &amp; barks.</small>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Active Persona Lens</label>
+            <div class="lens-button-group">
+              <button type="button" class="lens-btn active" data-lens="architect">🕶️ Architect</button>
+              <button type="button" class="lens-btn" data-lens="companion">☕ Companion</button>
+              <button type="button" class="lens-btn" data-lens="tinkerer">⚡ Tinkerer</button>
+            </div>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Two-Stroke Fast Reflex (&lt;100ms)</strong>
+              <p>Instant golden corona flare + spatial audio chime</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalFastReflexToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Micro-Vocal Cues</strong>
+              <p>"On it...", "Looking into that..." on speech stop</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalMicroVocalToggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Proactive Spatial Heartbeat</strong>
+              <p>Idle breathing, schedule radar &amp; 45m stretch reminder</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalHeartbeatToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="modalHeartbeatInterval">Heartbeat Interval</label>
+            <select id="modalHeartbeatInterval" class="select-styled">
+              <option value="5">5 Minutes (Deep Focus)</option>
+              <option value="15" selected>15 Minutes (Balanced)</option>
+              <option value="30">30 Minutes (Casual)</option>
+            </select>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Show Inner Monologue HUD</strong>
+              <p>Render chain-of-thought &amp; intent stream in VR</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalShowThoughtsToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Tab: Spatial & Tactile -->
+        <div class="settings-tab-pane" id="tab-spatial">
+          <div class="section-title-row" style="margin-bottom: 4px;">
+            <span class="section-badge">Physical Interaction</span>
+            <h4 style="margin: 0; color: #fff;">Tactile Core Physics</h4>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>XR Poke Interaction</strong>
+              <p>Finger-touch audio click &amp; instant speech toggle</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalPokeToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>XR Grab &amp; Reposition</strong>
+              <p>Freely grab and place Sola anywhere in your physical room</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalGrabToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Flick-to-Perch Dismiss</strong>
+              <p>Flick/throw the core to dock into a 0.5x miniature peripheral perch</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalFlickToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <hr class="settings-divider">
+
+          <div class="section-title-row" style="margin-bottom: 4px;">
+            <span class="section-badge">Gaze Attention</span>
+            <h4 style="margin: 0; color: #fff;">Micro-Awakening</h4>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Gaze Awakening (Opt-in)</strong>
+              <p>Looking directly at Sola gently ramps corona glow &amp; awakens her</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalGazeAwakenToggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="slider-group">
+            <div class="label-row">
+              <label for="modalGazeDwellSlider">Gaze Dwell Duration</label>
+              <span class="slider-val" id="modalGazeDwellValue">0.6s</span>
+            </div>
+            <input type="range" id="modalGazeDwellSlider" min="0.3" max="2.0" step="0.1" value="0.6">
+          </div>
+
+          <hr class="settings-divider">
+
+          <div class="section-title-row" style="margin-bottom: 4px;">
+            <span class="section-badge">Contextual Automation</span>
+            <h4 style="margin: 0; color: #fff;">Spatial Zones</h4>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div>
+              <strong>Dynamic Zone Swapping (Opt-in)</strong>
+              <p>Auto-swaps persona lenses based on physical location (Desk vs Lounge)</p>
+            </div>
+            <label class="switch-container">
+              <input type="checkbox" id="modalZonesToggle">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="slider-group">
+            <div class="label-row">
+              <label for="modalZoneRadiusSlider">Proximity Trigger Radius</label>
+              <span class="slider-val" id="modalZoneRadiusValue">2.0m</span>
+            </div>
+            <input type="range" id="modalZoneRadiusSlider" min="0.5" max="5.0" step="0.25" value="2.0">
+          </div>
+
+          <div class="zone-anchors-cluster">
+            <p class="zone-anchors-desc">Walk to your physical location in headset, then tap below to calibrate room anchors:</p>
+            <div class="zone-btn-row">
+              <button type="button" class="btn btn-secondary btn-sm" id="btnSetDeskAnchor">
+                📌 Calibrate Desk (Architect)
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnSetLoungeAnchor">
+                🛋️ Calibrate Lounge (Companion)
+              </button>
+            </div>
+            <span class="status-feedback" id="zoneAnchorFeedback"></span>
+          </div>
+        </div>
+
+        <!-- Tab 3: Audio & Hardware -->
+        <div class="settings-tab-pane" id="tab-audio">
+          <div class="slider-group">
+            <div class="label-row">
+              <label for="modalVolumeSlider">Master Audio Volume</label>
+              <span class="slider-val" id="modalVolumeValue">100%</span>
+            </div>
+            <input type="range" id="modalVolumeSlider" min="0" max="1" step="0.05" value="1.0">
+          </div>
+
+          <div class="slider-group">
+            <div class="label-row">
+              <label for="modalVoicePitchSlider">Voice Synthesis Pitch</label>
+              <span class="slider-val" id="modalVoicePitchValue">1.0x</span>
+            </div>
+            <input type="range" id="modalVoicePitchSlider" min="0.8" max="1.2" step="0.05" value="1.0">
+          </div>
+
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="modalHeadsetIp">Headset LAN IP Address</label>
+            <input type="text" id="modalHeadsetIp" placeholder="192.168.1.120" spellcheck="false" class="code-font">
+          </div>
+        </div>
+
+        <!-- Tab 3: Live Thought Feed -->
+        <div class="settings-tab-pane" id="tab-telemetry">
+          <div class="thought-telemetry-header">
+            <span class="telemetry-badge">● Live Cognitive Stream</span>
+            <div class="telemetry-actions">
+              <button type="button" class="btn-ghost-small" id="btnSimulateThought">Simulate</button>
+              <button type="button" class="btn-ghost-small" id="btnClearThoughtStream">Clear</button>
+            </div>
+          </div>
+          <div class="thought-terminal" id="thoughtTerminalLog">
+            <div class="thought-log-entry info">
+              <span class="thought-timestamp">[INIT]</span>
+              <span class="thought-content">Cognitive engine standby. Waiting for spatial event or query...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer-cluster">
+        <button type="button" class="btn btn-primary" id="btnPushSettingsLan">
+          📡 Push Live to Headset (LAN)
+        </button>
+        <span class="status-feedback" id="modalPushFeedback"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Sola Public Repository .gitignore
+# Binaries must be hosted as GitHub Release Assets, not in the Git tree!
+
+# Build artifacts
+[Bb]uild/
+[Bb]uilds/
+*.apk
+*.zip
+*.tar.gz
+*.exe
+*.dll
+
+# Environment & credentials
+.env
+.env.local
+*.key
+*.pem
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

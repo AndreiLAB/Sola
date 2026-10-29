@@ -1,0 +1,47 @@
+name: Deploy Sola Web Companion to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare Web Companion
+        run: |
+          if [ -d "companion" ]; then
+            if [ -n "${{ secrets.GOOGLE_CLIENT_ID }}" ]; then
+              echo "{\"googleClientId\":\"${{ secrets.GOOGLE_CLIENT_ID }}\"}" > companion/config.json
+            elif [ -f companion/config.example.json ]; then
+              cp companion/config.example.json companion/config.json
+            fi
+          fi
+
+      - name: Upload Companion Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "companion"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
