@@ -1,11 +1,11 @@
 # 🌑 Sola: Autonomous Mixed Reality AI Companion
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AndreiLAB/SolaDev/main/Assets/Captures/sola_wake_reaction_questionmark.png" width="680" alt="Sola XR Companion in Mixed Reality" />
+  <img src="assets/images/sola_hero.jpg" width="720" alt="Sola XR Companion in Mixed Reality" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/AndreiLAB/Sola/releases/latest"><img src="https://img.shields.io/github/v/release/AndreiLAB/Sola?color=blue&label=Latest%20Release" alt="Latest Release"></a>
+  <a href="https://github.com/AndreiLAB/Sola/releases"><img src="https://img.shields.io/badge/Release-v2.5.0--preview-blue" alt="Latest Release"></a>
   <a href="https://sidequestvr.com/"><img src="https://img.shields.io/badge/Platform-Meta_Quest_3_%2F_3S-blueviolet?logo=meta" alt="Meta Quest 3"></a>
   <a href="https://github.com/AndreiLAB/Sola/releases/latest"><img src="https://img.shields.io/badge/Platform-Windows_PCXR-blue?logo=windows" alt="Windows PCXR"></a>
   <a href="https://andreilab.github.io/Sola/"><img src="https://img.shields.io/badge/Web_Companion-Live_App-cyan?logo=googlechrome" alt="Web Companion"></a>
@@ -75,11 +75,18 @@ Grab the latest pre-compiled build from the [**Releases Page**](https://github.c
 
 | Hands-Free Voice HUD & VAD | Proactive Morning Briefing |
 | :---: | :---: |
-| <img src="https://raw.githubusercontent.com/AndreiLAB/SolaDev/main/Assets/Captures/sola_desk_voice_hud_screen.png" width="450" alt="Voice HUD"/> | <img src="https://raw.githubusercontent.com/AndreiLAB/SolaDev/main/Assets/Captures/sola_boot_news_speaking_happy.png" width="450" alt="Boot News"/> |
+| <img src="assets/images/sola_voice_hud.png" width="450" alt="Hands-Free Voice HUD & VAD"/> | <img src="assets/images/sola_boot_news.png" width="450" alt="Proactive Boot News Morning Briefing"/> |
+| *Real-time mic energy VAD, procedural chimes, and automatic cutoff* | *Morning briefing synthesizing Obsidian notes and live weather* |
 
 | Attentive "Listen" Face (`?`) | Audio-Reactive Equalizer Corona |
 | :---: | :---: |
-| <img src="https://raw.githubusercontent.com/AndreiLAB/SolaDev/main/Assets/Captures/sola_wake_reaction_questionmark.png" width="450" alt="Listen Face"/> | <img src="https://raw.githubusercontent.com/AndreiLAB/SolaDev/main/Assets/Captures/sola_evolution_voice_equalizer.png" width="450" alt="Equalizer"/> |
+| <img src="assets/images/sola_listen_face.png" width="450" alt="Attentive Listen Face"/> | <img src="assets/images/sola_equalizer.png" width="450" alt="Audio-Reactive Equalizer Corona"/> |
+| *Wake reaction glyph with electric cyan corona* | *FFT 64-band audio spectrum flare on speech* |
+
+| White Spherical Live Clock | White Radial Countdown Timer |
+| :---: | :---: |
+| <img src="assets/images/sola_white_clock.png" width="450" alt="White Spherical Clock"/> | <img src="assets/images/sola_white_timer.png" width="450" alt="White Radial Timer"/> |
+| *Live spherical time ring inside Sola core* | *Spatial countdown ring with completion chime (`/timer 120`)* |
 
 ---
 
